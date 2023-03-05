@@ -5,6 +5,7 @@ import counterReducer, {
   incrementByAmount,
 } from './counterSlice';
 
+
 describe('counter reducer', () => {
   const initialState: CounterState = {
     value: 3,
