@@ -1,1 +1,1 @@
-export function fetchCount() {}
+export const someAPI = () => {};
