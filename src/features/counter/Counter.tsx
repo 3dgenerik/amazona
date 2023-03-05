@@ -5,7 +5,7 @@ import { decrement, increment } from "./counterSlice";
 import styles from "./Counter.module.css";
 import { RootState } from "../../app/store";
 
-export const Counter = () => {
+export const Counter: React.FC = () => {
   const count = useAppSelector((state: RootState) => state.counter.value);
   const dispatch = useAppDispatch();
 
