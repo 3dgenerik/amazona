@@ -12,10 +12,10 @@ export interface IProduct {
 }
 
 export interface ResponseGenerator{
-    config?: string;
-    data: IProduct[];
-    headers?:string;
-    request?:string;
-    status?:string;
-    statusText?:string;
+  config?: string;
+  data: IProduct[];
+  headers?:string;
+  request?:string;
+  status?:string;
+  statusText?:string;
 }
