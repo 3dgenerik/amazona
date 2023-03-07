@@ -6,11 +6,14 @@ import { IProduct } from '../../interface/interface';
 import star from '../../assets/icons/star.png';
 import { NavLink } from 'react-router-dom';
 
+const path = `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 679 829"%3E%3C/svg%3E`
 export const Products: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
+  
   const { isLoaded, products, error } = useAppSelector(
     (state: RootState) => state.products
   );
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -36,31 +39,37 @@ export const Products: React.FC = () => {
           </div>
         </header>
 
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center position-relative">
+
+          <div
+              className={`d-${loading ? 'block' : 'none'} text-secondary`}
+              style={{
+                fontSize: '1rem',
+                position:'absolute',
+                zIndex:'99999'
+              }}
+            >
+              ...image loader
+          </div>
+
           <NavLink to={`products/${product.slug}`}>
+            
             <img
               style={{
                 width: '100%',
-                // maxWidth:'300px',
-                display: loading ? 'none' : 'block',
+                // display: loading ? 'none' : 'block',
                 animation: 'fadeIn 0.5s',
+                zIndex:0
               }}
-              src={require(`../../${product.image}`)}
+              src={loading ? path : require(`../../${product.image}`)}
               alt={product.name}
               onLoad={(e) => {
                 setLoading(false);
               }}
             />
-
-            <div
-              className={`d-${loading ? 'block' : 'none'} text-secondary`}
-              style={{
-                fontSize: '1rem',
-              }}
-            >
-              ...image loader
-            </div>
           </NavLink>
+
+
         </div>
 
         <footer className="d-flex flex-column justify-content-between align-items-center m-1 m-sm-3">
@@ -94,14 +103,16 @@ export const Products: React.FC = () => {
       {!isLoaded ? (
         <div
           style={{
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
           }}
           className="d-grid container gap-1 gap-sm-3"
         >
           {getProductNames}
         </div>
       ) : (
-        <div className="d-flex  justify-content-center align-items-center">...loading section</div>
+        <div style = {{width:'100%', height:'100vh'}} className="d-flex  justify-content-center display-1">
+          ...loading section
+        </div>
       )}
     </section>
   );
