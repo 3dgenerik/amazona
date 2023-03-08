@@ -17,14 +17,14 @@ export const Products: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchProductsPedding('data/data.json'));
+    dispatch(fetchProductsPedding('http://localhost:4000/products'));
   }, [dispatch]);
 
   const getProductNames = products.map((product: IProduct, idx: number) => {
     return (
       <article
         style={{ backgroundColor: 'white' }}
-        key={product.slug}
+        key={idx}
         className="border rounded-1 rounded-3"
       >
         <header className="m-2 m-sm-3">
@@ -100,20 +100,29 @@ export const Products: React.FC = () => {
 
   return (
     <section className="py-2 py-sm-3 my-5">
-      {!isLoaded ? (
-        <div
-          style={{
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          }}
-          className="d-grid container gap-1 gap-sm-3"
-        >
-          {getProductNames}
+      {
+      !error
+        ?
+        !isLoaded ? (
+          <div
+            style={{
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            }}
+            className="d-grid container gap-1 gap-sm-3"
+          >
+            {getProductNames}
+          </div>
+        ) : (
+          <div style = {{width:'100%', height:'100vh'}} className="d-flex text-secondary justify-content-center">
+            ...loading section
+          </div>
+        )
+        :
+        <div className = 'd-flex justify-content-center align-items-center'>
+          <div style={{backgroundColor:'rgba(255,0,0,.2)'}} className='border d-inline fw-bold text-danger p-3 rounded-3 border-danger border-1'>Network error</div>
         </div>
-      ) : (
-        <div style = {{width:'100%', height:'100vh'}} className="d-flex  justify-content-center display-1">
-          ...loading section
-        </div>
-      )}
+      }
+        
     </section>
   );
 };

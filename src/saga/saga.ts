@@ -5,7 +5,7 @@ import {
   fetchProductsRejected,
 } from "../features/products/products.slice";
 import { IProduct } from "../interface/interface";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { ResponseGenerator } from "../interface/interface";
 
 const fetchProducts = async (path: string) => {
@@ -19,8 +19,13 @@ function* getProductsWorker(action: { type: string; payload: string }) {
       action.payload
     );
     yield put(fetchProductsFulfilled(response.data as IProduct[]));
-  } catch (err) {
-    yield put(fetchProductsRejected("Something went wrong."));
+  } catch (err: any | unknown) {
+    let error = ''
+    if (err instanceof AxiosError)
+      error = err.message
+    else
+      error = 'Something went wrong'
+    yield put(fetchProductsRejected(error));
   }
 }
 

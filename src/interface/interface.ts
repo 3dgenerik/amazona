@@ -19,3 +19,9 @@ export interface ResponseGenerator{
   status?:string;
   statusText?:string;
 }
+
+export interface IData{
+  error: string,
+  message: string[],
+  statusCode: number
+}
