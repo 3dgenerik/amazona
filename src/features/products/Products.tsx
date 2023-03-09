@@ -17,29 +17,36 @@ const [loading, setLoading] = useState<boolean>(true);
 
   const getProductNames = products.map((product: IProduct, idx: number) => {
     return (
+    //   <div  key={idx} className = 'border shadow-sm flex-grow-1'>
       <div  key={idx} className = 'border shadow-sm'>
-        <div >
+        <div style = {{height:"400px"}} className ='d-flex justify-content-center align-items-center overflow-hidden position-relative'>
+            <a href={`/product/${product.slug}`} style = {{height:'100%', width:"100%"}}>
+                <img
+                    style={{
+                            display: loading?"none":"block",
+                            animation: "fadeIn 0.5s",
+                            height:'100%',
+                        }}
+                    src={require(`../../${product.image}`)}
+                    alt="img"
+                    onLoad={(e)=>{setLoading(false)}}/>
 
-            <img
-                style={{
-                        display: loading?"none":"block",
-                        width:"100%",
-                        animation: "fadeIn 0.5s",
-                    }}
-                src={require(`../../${product.image}`)}
-                alt="img"
-                onLoad={(e)=>{setLoading(false)}}/>
-
-            <div className="spinner" style={{
-                display: loading?"block":"none",
-                fontSize:"24px"
-            }} >IMAGE LOADER</div>
+                <div style={{
+                    position:'absolute',
+                    display: loading?"flex":"none",
+                    justifyContent:'center',
+                    alignItems:'center',
+                    fontSize:"24px",
+                    backgroundColor:'gray',
+                }} >IMAGE LOADER</div>
+            </a>
 
         </div>
 
         <div className="p-2">
           {product.name}
         </div>
+        <button className="btn btn-primary m-2">ADD TO CHART</button>
       </div>
     );
   });
@@ -49,7 +56,8 @@ const [loading, setLoading] = useState<boolean>(true);
       {isLoaded ? (
         <p>...loading</p>
       ) : (
-        <div style = {{gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))'}} className="d-grid gap-3 m-3">{getProductNames}</div>
+        // <div style = {{gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'}} className="d-grid gap-3 m-3">{getProductNames}</div>
+        <div className="d-flex flex-wrap gap-3 justify-content-center m-3">{getProductNames}</div>
       )}
     </>
   );
