@@ -18,7 +18,7 @@ services:
       - .:/app
     command: ["npm", "run", "test"]
   
-  build:
+  builder:
     build: .
     ports:
       - "8080:80"
