@@ -5,7 +5,6 @@ import { SendProductsToBackend } from "./SendProductsToBackend";
 export const Home:React.FC = () => {
     return(
         <>
-            {/* <SendProductsToBackend/> */}
             <Products/>
         </>
     )

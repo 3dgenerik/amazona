@@ -4,14 +4,11 @@ import {
   RouterProvider,
   createBrowserRouter,
   Route,
-  Link,
-  NavLink,
   createRoutesFromElements,
 } from 'react-router-dom';
 
 import { MainLayout } from './layout/MainLayout';
 import { ProductScreen } from './screen/ProductScreen';
-import { SendProductsToBackend } from './screen/SendProductsToBackend';
 
 const App = () => {
 
